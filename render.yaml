@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: server
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: DB_HOST
+        value: db.amkripurwnppvfsmjvbc.supabase.co
+      - key: DB_USER
+        value: postgres
+      - key: DB_PASSWORD
+        value: rudram_2021
+      - key: DB_NAME
+        value: postgres
+      - key: JWT_SECRET
+        value: WZiVR4OC7qpNlAyh0l19yCSiVGWsSr
+      - key: PORT
+        value: 5000
