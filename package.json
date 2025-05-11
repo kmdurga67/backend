@@ -4,9 +4,8 @@
   "description": "\"Creating application for archives & museum@",
   "main": "app.js",
   "scripts": {
-    "test": "nodemon node_modules/nodemon/bin/nodemon.js",
-    "start": "nodemon node_modules/nodemon/bin/nodemon.js",
-    "dev": "nodemon node_modules/nodemon/bin/nodemon.js"
+    "start": "node app.js",
+    "dev": "node app.js"
   },
   "author": "Kumari Durga & Ajay Sonawane",
   "license": "ISC",

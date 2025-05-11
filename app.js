@@ -16,13 +16,13 @@ const topTechnologiesRoute = require('./routes/topTechnologiesRoute');
 const visitorRoutes = require('./routes/visitorRoute');
 
 const app = express();
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT;
 const upload = multer({ storage: multer.memoryStorage() });
 
 app.use(helmet());
 
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: ["http://localhost:3000", "*", "https://archives-phi.vercel.app"],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 const uploadsPath = path.join(__dirname, 'uploads');
 
 app.use('/uploads', (req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   // res.setHeader("Content-Type", "image/jpg"); 
