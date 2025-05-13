@@ -57,14 +57,12 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(express.static(path.join(__dirname, 'build')));
 
 const uploadsPath = path.join(__dirname, 'uploads');
-app.use('/uploads', 
-  express.static(uploadsPath, {
-    setHeaders: (res) => {
-      res.set("Access-Control-Allow-Origin", "*");
-      res.set("Access-Control-Allow-Methods", "GET, OPTIONS");
-    }
-  })
-);
+app.use('/uploads', (req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+}, express.static(uploadsPath));
 
 if (process.env.NODE_ENV !== 'production') {
   initializeAdmin();
