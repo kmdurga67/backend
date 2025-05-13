@@ -33,10 +33,7 @@ const limiter = rateLimit({
 app.use(limiter);
 
 const corsOptions = {
-  origin: [
-    "http://localhost:3000", 
-    "https://archives-phi.vercel.app"
-  ],
+  origin:process.env.REACT_APP_URL,
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
