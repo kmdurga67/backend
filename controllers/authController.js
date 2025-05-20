@@ -75,19 +75,23 @@ const loginAdmin = async (req, res) => {
 
     res.cookie('adminToken', token, {
       httpOnly: true,
-      // secure: true,
-      // sameSite: 'strict',
+      secure: false,
+      sameSite: 'none',
+      // domain:'http://localhost:3000',
+      path: '/admin/dashboard/dashboard-content'
       // maxAge: 30 * 24 * 60 * 60 * 1000
     });
 
     res.json({
       success: true,
       token,
-      admin: {
-        id: admin.id,
-        email: admin.email,
-        name: admin.name
-      }
+      // admin: {
+      //   id: admin.id,
+      //   email: admin.email,
+      //   name: admin.name
+      // },
+      message: 'Login Successful',
+      redirect:'/admin/dashboard/dashboard-content/'
     });
 
   } catch (err) {
