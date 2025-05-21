@@ -2,7 +2,8 @@ const pool = require('../config/database');
 
 const DocumentModel = {
     getDocumentMetadata: async () => {
-        const { rows } = await pool.query(`
+        try {
+            const { rows } = await pool.query(`
             SELECT 
                 title, 
                 author, 
@@ -13,7 +14,11 @@ const DocumentModel = {
                 name_of_publisher 
             FROM documents
         `);
-        return rows;
+            return rows || [];
+        } catch (error) {
+            console.error('Error fetching metadata:', error);
+            return [];
+        }
     },
 
     getAllDocuments: async () => {
@@ -69,27 +74,27 @@ const DocumentModel = {
 
     updateDoucment: async (accession_no, documentData) => {
         const filteredData = Object.entries(documentData).reduce((acc, [key, value]) => {
-            if(value !== undefined && value !== null){
+            if (value !== undefined && value !== null) {
                 acc[key] = value;
             }
             return acc;
         }, {});
-        if (Object.keys(filteredData).length === 0){
+        if (Object.keys(filteredData).length === 0) {
             throw new Error("No valid fields provided for update of document");
-        } 
+        }
 
-        const setClause = Object.keys(documentData).map((key, index) =>    `${key} = $${index + 1}`)
-        .join(', ');
+        const setClause = Object.keys(documentData).map((key, index) => `${key} = $${index + 1}`)
+            .join(', ');
 
         const values = Object.values(documentData);
         values.push(accession_no);
 
         const query = {
-            text : `UPDATE documents SET ${setClause} WHERE accession_no = $${values.length} RETURNING *`,
+            text: `UPDATE documents SET ${setClause} WHERE accession_no = $${values.length} RETURNING *`,
             values: values,
         }
 
-        const { rows }  = await pool.query(query);
+        const { rows } = await pool.query(query);
         return rows[0];
     },
 
