@@ -2,8 +2,7 @@ const pool = require('../config/database');
 
 const DocumentModel = {
     getDocumentMetadata: async () => {
-        try {
-            const { rows } = await pool.query(`
+        const { rows } = await pool.query(`
             SELECT 
                 title, 
                 author, 
@@ -14,11 +13,7 @@ const DocumentModel = {
                 name_of_publisher 
             FROM documents
         `);
-            return rows || [];
-        } catch (error) {
-            console.error('Error fetching metadata:', error);
-            return [];
-        }
+        return rows;
     },
 
     getAllDocuments: async () => {

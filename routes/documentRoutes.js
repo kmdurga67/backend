@@ -21,6 +21,6 @@ router.get('/:accession_no', authAdmin, DocumentController.getDocumentByTitle);
 router.post("/", authAdmin, upload.single('file_path'), DocumentController.createDocument);
 router.put('/:accession_no', authAdmin, upload.single('file_path'), DocumentController.updateDoucment);
 router.delete('/:accession_no', authAdmin, DocumentController.deleteDocument);
-router.get('/metadata', authAdmin, DocumentController.getDocumentMetadata);
+router.get('/metadata/all', authAdmin, DocumentController.getDocumentMetadata);
 
 module.exports = router;
